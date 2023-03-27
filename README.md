@@ -28,8 +28,11 @@ We are looking for you to prepare a start-for-ten codebase with which we can do 
 programming to add functionality. At a minimum the code should:
 
 • Compile without errors
+
 • Include unit tests which are runnable (either via an IDE or command line)
+
 • Include unit tests which pass
+
 To assist in keeping the functionality as simple as possible the unit tests do not need to cover all
 possible scenarios, simply that they pass for the scenario they cover in your code e.g., if you only
 have code which works for a certain price range of house then only this needs to be covered in the
