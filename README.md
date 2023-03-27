@@ -1,4 +1,5 @@
 # LBTT-calculation
+
 The Task:
 Buying a house in the UK incurs a tax which varies according to the price of the house and
 circumstances of the purchaser e.g., a higher rate is paid if you are buying a second home. In
