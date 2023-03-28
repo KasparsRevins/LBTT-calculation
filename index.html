@@ -5,7 +5,33 @@
   </head>
   <body>
     <py-script>
-        print('Hello, World!')
+      def calculate_lbtt(price):
+      """
+      Calculates the LBTT based on the given price of the house.
+      """
+      if price <= 145000:
+          return 0
+      elif price <= 250000:
+          return (price - 145000) * 0.02
+      elif price <= 325000:
+          return (price - 250000) * 0.05 + 2100
+      elif price <= 750000:
+          return (price - 325000) * 0.1 + 7100
+      elif price <= 1000000:
+          return (price - 750000) * 0.12 + 43750
+      elif price <= 2000000:
+          return (price - 1000000) * 0.13 + 89750
+      else:
+          return (price - 2000000) * 0.15 + 279500
+  
+  price = float(input("Enter the price of the house: "))
+  lbtt = calculate_lbtt(price)
+  print("LBTT to be paid: £", lbtt)
+  """
+  This code defines a function calculate_lbtt() that takes the price of the house as input and returns the LBTT to be paid. The LBTT calculation is based on the current rates as per Scottish Government guidelines (as of September 2021), but you can modify the function to match the rates for England if you prefer.
+  
+  The code then prompts the user to input the price of the house, calls the calculate_lbtt() function to calculate the LBTT, and prints the result to the console.
+  """
     </py-script>
   </body>
 </html>
