@@ -63,31 +63,33 @@
 
     <py-script>
 
-      def calculate_lbtt(price, is_first_time_buyer=False, is_additional_home=False):
+def calculate_lbtt(price, is_first_time_buyer=False, is_additional_home=False):
     if is_first_time_buyer:
-        # First-time buyers are exempt from LBTT for properties up to £175,000
+        # First-time buyers are exempt from LBTT for properties up to £175,000, 
         if price <= 175000:
             return 0
-        # For properties between £175,001 and £250,000, first-time buyers pay 2% on the portion above £175,000
         elif price <= 250000:
-            return (price - 175000) * 0.02
-        # For properties over £250,000, first-time buyers pay 5% on the portion above £250,000
+            return (price - 145000) * 0.02 
+        elif price <= 325000:
+            return (price - 250000) * 0.05 + (250000 - 145000) * 0.02 + (145000)
+        elif price <= 750000:
+            return (price - 325000) * 0.1 + (250000 - 145000) * 0.05 + (145000) * 0.02
         else:
-            return (price - 250000) * 0.05 + (250000 - 175000) * 0.02
+            return 0
     elif is_additional_home:
-        # Additional homes are subject to an additional 4% surcharge on top of the standard rates
+        # Additional homes are subject to 6% 8% 11% 16% and 18% tax.
         if price <= 40000:
             return 0
         elif price <= 145000:
-            return (price - 40000) * 0.03 * 1.04
+            return (price) * 0.06
         elif price <= 250000:
-            return (price - 145000) * 0.05 * 1.04 + (145000 - 40000) * 0.03 * 1.04
+            return (price - 145000) * 0.08 + (145000) * 0.06 
         elif price <= 325000:
-            return (price - 250000) * 0.08 * 1.04 + (250000 - 145000) * 0.05 * 1.04 + (145000 - 40000) * 0.03 * 1.04
+            return (price - 250000) * 0.11 + (250000 - 145000) * 0.08 + (145000) * 0.06 
         elif price <= 750000:
-            return (price - 325000) * 0.13 * 1.04 + (325000 - 250000) * 0.08 * 1.04 + (250000 - 145000) * 0.05 * 1.04 + (145000 - 40000) * 0.03 * 1.04
+            return (price - 325000) * 0.16 + (325000 - 250000) * 0.11 + (250000 - 145000) * 0.08 + (145000) * 0.06 
         else:
-            return (price - 750000) * 0.15 * 1.04 + (750000 - 325000) * 0.13 * 1.04 + (325000 - 250000) * 0.08 * 1.04 + (250000 - 145000) * 0.05 * 1.04 + (145000 - 40000) * 0.03 * 1.04
+            return (price - 750000) * 0.18 + (750000 - 325000) * 0.16 + (325000 - 250000) * 0.11  + (250000 - 145000) * 0.08 + (145000) * 0.06 
     else:
         # Standard rates apply for all other buyers
         if price <= 145000:
@@ -99,13 +101,15 @@
         elif price <= 750000:
             return (price - 325000) * 0.1 + (325000 - 250000) * 0.05 + (250000 - 145000) * 0.02
         else:
-            return (price - 750000) * 0.12 + (750000 - 325000) * 0.1 + (325000 - 250000) * 0.
+            return (price - 750000) * 0.12 + (750000 - 325000) * 0.1 + (325000 - 250000) * 0.05 + (250000 - 145000) * 0.02
   
-  price = float(input("Enter the price of the house: "))
-  lbtt = calculate_lbtt(price)
-  print("LBTT to be paid: £", lbtt)
+price = float(input("Enter the price of the house: "))
+lbtt = calculate_lbtt(price)
+print("LBTT to be paid: £", lbtt)
+
   """
-  This code defines a function calculate_lbtt() that takes the price of the house as input and returns the LBTT to be paid. The LBTT calculation is based on the current rates as per Scottish Government guidelines (as of September 2021).
+  This code defines a function calculate_lbtt() that takes the price of the house as input and returns the LBTT to be paid. 
+  The LBTT calculation is based on the current rates as per Scottish Government guidelines (as of September 2021).
   
   The code then prompts the user to input the price of the house, calls the calculate_lbtt() function to calculate the LBTT, and prints the result to the console.
   """
