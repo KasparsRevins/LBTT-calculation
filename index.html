@@ -1,118 +1,83 @@
 <html>
   <head>
+    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
     <script defer src="https://pyscript.net/latest/pyscript.js"></script>
   </head>
 
   <body>
 
-    <form onsubmit="return false">
-
-        <label for="name">Name:</label><br>
-        <input type="text" id="name" name="name" value="0"><br>
+    <div>
+        <label for="price">Price:</label><br>
+        <input type="number" id="price" name="price" value="0"><br>
 
         <select name="rate" id="rate">
-            <option value="First-time">First time_buyer</option>
+            <option value="First-time">First time buyer</option>
             <option value="Additional-home">Additional home</option>
             <option value="Neither">Neither</option>
         </select>
 
-        <input pys-onClick="sub" type="submit" id="btn-form" value="submit">
+        <button py-click="submit()">Submit</button>
 
-        <p>Output:</p>
-        <p id = 'output'></p>
-
-    </form> 
-
-# Style -------------------------------------------------------------------
-
-    <style>
-        input[type=text], select {
-          width: 100%;
-          padding: 12px 20px;
-          margin: 8px 0;
-          display: inline-block;
-          border: 1px solid #ccc;
-          border-radius: 4px;
-          box-sizing: border-box;
-        }
-        
-        input[type=submit] {
-          width: 100%;
-          background-color: #4c4faf;
-          color: white;
-          padding: 14px 20px;
-          margin: 8px 0;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-        }
-        
-        input[type=submit]:hover {
-          background-color: #45a049;
-        }
-        
-        p {
-          border-radius: 5px;
-          background-color: #f2f2f2;
-          padding: 20px;
-        }
-        </style>
-
-#Py Script -------------------------------------------------------------------
+        <span>
+            <p>Output: </p>
+            <p id="output"></p>
+        </span>
+    </div> 
 
     <py-script>
 
-def calculate_lbtt(price, is_first_time_buyer=False, is_additional_home=False):
-    if is_first_time_buyer:
-        # First-time buyers are exempt from LBTT for properties up to £175,000, 
-        if price <= 175000:
-            return 0
-        elif price <= 250000:
-            return (price - 145000) * 0.02 
-        elif price <= 325000:
-            return (price - 250000) * 0.05 + (250000 - 145000) * 0.02 + (145000)
-        elif price <= 750000:
-            return (price - 325000) * 0.1 + (250000 - 145000) * 0.05 + (145000) * 0.02
-        else:
-            return 0
-    elif is_additional_home:
-        # Additional homes are subject to 6% 8% 11% 16% and 18% tax.
-        if price <= 40000:
-            return 0
-        elif price <= 145000:
-            return (price) * 0.06
-        elif price <= 250000:
-            return (price - 145000) * 0.08 + (145000) * 0.06 
-        elif price <= 325000:
-            return (price - 250000) * 0.11 + (250000 - 145000) * 0.08 + (145000) * 0.06 
-        elif price <= 750000:
-            return (price - 325000) * 0.16 + (325000 - 250000) * 0.11 + (250000 - 145000) * 0.08 + (145000) * 0.06 
-        else:
-            return (price - 750000) * 0.18 + (750000 - 325000) * 0.16 + (325000 - 250000) * 0.11  + (250000 - 145000) * 0.08 + (145000) * 0.06 
-    else:
-        # Standard rates apply for all other buyers
-        if price <= 145000:
-            return 0
-        elif price <= 250000:
-            return (price - 145000) * 0.02
-        elif price <= 325000:
-            return (price - 250000) * 0.05 + (250000 - 145000) * 0.02
-        elif price <= 750000:
-            return (price - 325000) * 0.1 + (325000 - 250000) * 0.05 + (250000 - 145000) * 0.02
-        else:
-            return (price - 750000) * 0.12 + (750000 - 325000) * 0.1 + (325000 - 250000) * 0.05 + (250000 - 145000) * 0.02
-  
-price = float(input("Enter the price of the house: "))
-lbtt = calculate_lbtt(price)
-print("LBTT to be paid: £", lbtt)
+        def calculate_lbtt(price, is_first_time_buyer=False, is_additional_home=False):
+            if is_first_time_buyer:
+                # First-time buyers are exempt from LBTT for properties up to £175,000, 
+                if price <= 175000:
+                    return 0
+                elif price <= 250000:
+                    return (price - 175000) * 0.02 
+                elif price <= 325000:
+                    return (price - 250000) * 0.05 + (250000 - 175000) * 0.02 + (175000)
+                elif price <= 750000:
+                    return (price - 325000) * 0.1 + (250000 - 175000) * 0.05 + (175000) * 0.02
+                else:
+                    return (price - 750000) * 0.12 + (750000 - 325000) * 0.1 + (325000 - 250000) * 0.05 + (250000 - 175000) * 0.02
+            elif is_additional_home:
+                # Additional homes are subject to 6% 8% 11% 16% and 18% tax.
+                if price <= 40000:
+                    return 0
+                elif price <= 145000:
+                    return (price) * 0.06
+                elif price <= 250000:
+                    return (price - 145000) * 0.08 + (145000) * 0.06 
+                elif price <= 325000:
+                    return (price - 250000) * 0.11 + (250000 - 145000) * 0.08 + (145000) * 0.06 
+                elif price <= 750000:
+                    return (price - 325000) * 0.16 + (325000 - 250000) * 0.11 + (250000 - 145000) * 0.08 + (145000) * 0.06 
+                else:
+                    return (price - 750000) * 0.18 + (750000 - 325000) * 0.16 + (325000 - 250000) * 0.11  + (250000 - 145000) * 0.08 + (145000) * 0.06 
+            else:
+                # Standard rates apply for all other buyers
+                if price <= 145000:
+                    return 0
+                elif price <= 250000:
+                    return (price - 145000) * 0.02
+                elif price <= 325000:
+                    return (price - 250000) * 0.05 + (250000 - 145000) * 0.02
+                elif price <= 750000:
+                    return (price - 325000) * 0.1 + (325000 - 250000) * 0.05 + (250000 - 145000) * 0.02
+                else:
+                    return (price - 750000) * 0.12 + (750000 - 325000) * 0.1 + (325000 - 250000) * 0.05 + (250000 - 145000) * 0.02
+        
+        def submit():
+            try:
+                price = float(js.document.getElementById("price").value)
+            except ValueError:
+                print("Please enter a valid price")
+            is_first_time_buyer = js.document.getElementById("rate").value == "First-time"
+            is_additional_home = js.document.getElementById("rate").value == "Additional-home"
 
-  """
-  This code defines a function calculate_lbtt() that takes the price of the house as input and returns the LBTT to be paid. 
-  The LBTT calculation is based on the current rates as per Scottish Government guidelines (as of September 2021).
-  
-  The code then prompts the user to input the price of the house, calls the calculate_lbtt() function to calculate the LBTT, and prints the result to the console.
-  """
+            lbtt = calculate_lbtt(price, is_first_time_buyer, is_additional_home)
+
+            js.document.getElementById("output").innerHTML = lbtt
 
     </py-script>
 
